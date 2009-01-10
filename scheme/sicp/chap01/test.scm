@@ -1,0 +1,6 @@
+(define (tree-walk walker proc tree)
+  (walker (lambda (elt)
+	    (if (list? elt)
+		(tree-walk walker proc elt)
+		(proc elt)))
+	  tree))

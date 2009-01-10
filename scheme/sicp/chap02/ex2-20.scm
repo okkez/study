@@ -1,0 +1,13 @@
+;; 2.20
+(define (same-parity arg . args)
+  (define (filter pred items)
+    (if (null? items)
+	'()
+	(if (pred (car items))
+	    (cons (car items) (filter pred (cdr items)))
+	    (filter pred (cdr items)))))
+  (if (odd? arg)
+      (cons arg (filter odd? args))
+      (cons arg (filter even? args))))
+(same-parity 1 2 3 4 5)
+(same-parity 6 2 3 4 5)
