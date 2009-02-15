@@ -1,0 +1,1159 @@
+state 6 contains 3 reduce/reduce conflicts
+state 7 contains 21 reduce/reduce conflicts
+state 8 contains 6 shift/reduce conflicts
+state 9 contains 2 shift/reduce conflicts
+state 12 contains 3 shift/reduce conflicts
+state 15 contains 7 shift/reduce conflicts
+state 16 contains 3 reduce/reduce conflicts
+state 33 contains 7 shift/reduce conflicts
+state 38 contains 6 shift/reduce conflicts
+state 38 contains 21 reduce/reduce conflicts
+state 39 contains 6 shift/reduce conflicts
+state 39 contains 21 reduce/reduce conflicts
+state 40 contains 6 shift/reduce conflicts
+state 40 contains 21 reduce/reduce conflicts
+state 41 contains 6 shift/reduce conflicts
+state 41 contains 21 reduce/reduce conflicts
+state 42 contains 6 shift/reduce conflicts
+state 42 contains 21 reduce/reduce conflicts
+state 43 contains 6 shift/reduce conflicts
+state 43 contains 21 reduce/reduce conflicts
+state 44 contains 2 shift/reduce conflicts
+state 45 contains 2 shift/reduce conflicts
+state 47 contains 3 shift/reduce conflicts
+state 48 contains 3 shift/reduce conflicts
+state 49 contains 3 shift/reduce conflicts
+state 51 contains 21 reduce/reduce conflicts
+state 52 contains 21 reduce/reduce conflicts
+state 53 contains 21 reduce/reduce conflicts
+state 54 contains 21 reduce/reduce conflicts
+state 55 contains 21 reduce/reduce conflicts
+
+rule 9 (asn) never reduced
+rule 11 (cmp) never reduced
+rule 12 (cmp) never reduced
+rule 13 (cmp) never reduced
+rule 14 (cmp) never reduced
+rule 15 (cmp) never reduced
+rule 16 (cmp) never reduced
+rule 19 (expr1) never reduced
+rule 20 (expr1) never reduced
+rule 23 (term1) never reduced
+rule 24 (term1) never reduced
+rule 25 (term1) never reduced
+
+-------- Grammar --------
+
+rule 1 prog: stat
+rule 2 prog: stat ";" prog
+rule 3 stat: "{" prog "}"
+rule 4 stat: "while" asn stat
+rule 5 stat: "if" asn stat
+rule 6 stat: "print" asn
+rule 7 stat: asn
+rule 8 asn: cmp
+rule 9 asn: cmp
+rule 10 cmp: expr
+rule 11 cmp: expr "==" expr
+rule 12 cmp: expr "!=" expr
+rule 13 cmp: expr ">" expr
+rule 14 cmp: expr ">=" expr
+rule 15 cmp: expr "<" expr
+rule 16 cmp: expr "<=" expr
+rule 17 expr: term expr1
+rule 18 expr1: 
+rule 19 expr1: "+" term expr1
+rule 20 expr1: "-" term expr1
+rule 21 term: fact term1
+rule 22 term1: 
+rule 23 term1: "*" fact term1
+rule 24 term1: "/" fact term1
+rule 25 term1: "%" fact term1
+rule 26 fact: "read"
+rule 27 fact: IDENT
+rule 28 fact: NUMBER
+rule 29 fact: asn
+
+------- Symbols -------
+
+**Nonterminals, with rules where they appear
+
+  $start (23)
+    on right: 
+    on left : 
+  prog (24)
+    on right: 2 3
+    on left : 1 2
+  stat (25)
+    on right: 1 2 4 5
+    on left : 3 4 5 6 7
+  asn (26)
+    on right: 4 5 6 7 29
+    on left : 8 9
+  cmp (27)
+    on right: 8 9
+    on left : 10 11 12 13 14 15 16
+  expr (28)
+    on right: 10 11 12 13 14 15 16
+    on left : 17
+  term (29)
+    on right: 17 19 20
+    on left : 21
+  expr1 (30)
+    on right: 17 19 20
+    on left : 18 19 20
+  fact (31)
+    on right: 21 23 24 25
+    on left : 26 27 28 29
+  term1 (32)
+    on right: 21 23 24 25
+    on left : 22 23 24 25
+
+**Terminals, with rules where they appear
+
+  $end (0) 
+  error (1) 
+  UMINUS (2) 
+  "*" (3) 23
+  "/" (4) 24
+  "+" (5) 19
+  "-" (6) 20
+  ";" (7) 2
+  "{" (8) 3
+  "}" (9) 3
+  "while" (10) 4
+  "if" (11) 5
+  "print" (12) 6
+  "==" (13) 11
+  "!=" (14) 12
+  ">" (15) 13
+  ">=" (16) 14
+  "<" (17) 15
+  "<=" (18) 16
+  "%" (19) 25
+  "read" (20) 26
+  IDENT (21) 27
+  NUMBER (22) 28
+
+--------- State ---------
+
+state 0
+
+
+  "{"           shift, and go to state 10
+  "while"       shift, and go to state 14
+  "if"          shift, and go to state 2
+  "print"       shift, and go to state 3
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  prog          go to state 4
+  stat          go to state 5
+  asn           go to state 6
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 12
+
+state 1
+
+  28) fact : NUMBER _
+
+  $default      reduce using rule 28 (fact)
+
+
+state 2
+
+   5) stat : "if" _ asn stat
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 15
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 12
+
+state 3
+
+   6) stat : "print" _ asn
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 16
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 12
+
+state 4
+
+
+  $end          shift, and go to state 17
+
+
+state 5
+
+   1) prog : stat _
+   2) prog : stat _ ";" prog
+
+  ";"           shift, and go to state 18
+  $default      reduce using rule 1 (prog)
+
+
+state 6
+
+   7) stat : asn _
+  29) fact : asn _
+
+  $end          reduce using rule 7 (stat)
+  $end          [reduce using rule 29 (fact)]
+  ";"           reduce using rule 7 (stat)
+  ";"           [reduce using rule 29 (fact)]
+  "}"           reduce using rule 7 (stat)
+  "}"           [reduce using rule 29 (fact)]
+  $default      reduce using rule 29 (fact)
+
+
+state 7
+
+   8) asn : cmp _
+   9) asn : cmp _
+
+  $end          [reduce using rule 9 (asn)]
+  "if"          [reduce using rule 9 (asn)]
+  NUMBER        [reduce using rule 9 (asn)]
+  "print"       [reduce using rule 9 (asn)]
+  "=="          [reduce using rule 9 (asn)]
+  "*"           [reduce using rule 9 (asn)]
+  "!="          [reduce using rule 9 (asn)]
+  "/"           [reduce using rule 9 (asn)]
+  ">"           [reduce using rule 9 (asn)]
+  "+"           [reduce using rule 9 (asn)]
+  ">="          [reduce using rule 9 (asn)]
+  "-"           [reduce using rule 9 (asn)]
+  "<"           [reduce using rule 9 (asn)]
+  ";"           [reduce using rule 9 (asn)]
+  "<="          [reduce using rule 9 (asn)]
+  "{"           [reduce using rule 9 (asn)]
+  "%"           [reduce using rule 9 (asn)]
+  "}"           [reduce using rule 9 (asn)]
+  "read"        [reduce using rule 9 (asn)]
+  "while"       [reduce using rule 9 (asn)]
+  IDENT         [reduce using rule 9 (asn)]
+  $default      reduce using rule 8 (asn)
+
+
+state 8
+
+  10) cmp : expr _
+  11) cmp : expr _ "==" expr
+  12) cmp : expr _ "!=" expr
+  13) cmp : expr _ ">" expr
+  14) cmp : expr _ ">=" expr
+  15) cmp : expr _ "<" expr
+  16) cmp : expr _ "<=" expr
+
+  "=="          shift, and go to state 19
+  "=="          [reduce using rule 10 (cmp)]
+  "!="          shift, and go to state 20
+  "!="          [reduce using rule 10 (cmp)]
+  ">"           shift, and go to state 21
+  ">"           [reduce using rule 10 (cmp)]
+  ">="          shift, and go to state 22
+  ">="          [reduce using rule 10 (cmp)]
+  "<"           shift, and go to state 23
+  "<"           [reduce using rule 10 (cmp)]
+  "<="          shift, and go to state 24
+  "<="          [reduce using rule 10 (cmp)]
+  $default      reduce using rule 10 (cmp)
+
+
+state 9
+
+  17) expr : term _ expr1
+
+  "+"           shift, and go to state 25
+  "+"           [reduce using rule 18 (expr1)]
+  "-"           shift, and go to state 26
+  "-"           [reduce using rule 18 (expr1)]
+  $default      reduce using rule 18 (expr1)
+
+  expr1         go to state 27
+
+state 10
+
+   3) stat : "{" _ prog "}"
+
+  "{"           shift, and go to state 10
+  "while"       shift, and go to state 14
+  "if"          shift, and go to state 2
+  "print"       shift, and go to state 3
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  prog          go to state 28
+  stat          go to state 5
+  asn           go to state 6
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 12
+
+state 11
+
+  26) fact : "read" _
+
+  $default      reduce using rule 26 (fact)
+
+
+state 12
+
+  21) term : fact _ term1
+
+  "*"           shift, and go to state 29
+  "*"           [reduce using rule 22 (term1)]
+  "/"           shift, and go to state 30
+  "/"           [reduce using rule 22 (term1)]
+  "%"           shift, and go to state 31
+  "%"           [reduce using rule 22 (term1)]
+  $default      reduce using rule 22 (term1)
+
+  term1         go to state 32
+
+state 13
+
+  27) fact : IDENT _
+
+  $default      reduce using rule 27 (fact)
+
+
+state 14
+
+   4) stat : "while" _ asn stat
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 33
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 12
+
+state 15
+
+   5) stat : "if" asn _ stat
+  29) fact : asn _
+
+  "{"           shift, and go to state 10
+  "{"           [reduce using rule 29 (fact)]
+  "while"       shift, and go to state 14
+  "while"       [reduce using rule 29 (fact)]
+  "if"          shift, and go to state 2
+  "if"          [reduce using rule 29 (fact)]
+  "print"       shift, and go to state 3
+  "print"       [reduce using rule 29 (fact)]
+  "read"        shift, and go to state 11
+  "read"        [reduce using rule 29 (fact)]
+  IDENT         shift, and go to state 13
+  IDENT         [reduce using rule 29 (fact)]
+  NUMBER        shift, and go to state 1
+  NUMBER        [reduce using rule 29 (fact)]
+  $default      reduce using rule 29 (fact)
+
+  stat          go to state 34
+  asn           go to state 6
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 12
+
+state 16
+
+   6) stat : "print" asn _
+  29) fact : asn _
+
+  $end          reduce using rule 6 (stat)
+  $end          [reduce using rule 29 (fact)]
+  ";"           reduce using rule 6 (stat)
+  ";"           [reduce using rule 29 (fact)]
+  "}"           reduce using rule 6 (stat)
+  "}"           [reduce using rule 29 (fact)]
+  $default      reduce using rule 29 (fact)
+
+
+state 17
+
+
+  $end          shift, and go to state 35
+
+
+state 18
+
+   2) prog : stat ";" _ prog
+
+  "{"           shift, and go to state 10
+  "while"       shift, and go to state 14
+  "if"          shift, and go to state 2
+  "print"       shift, and go to state 3
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  prog          go to state 36
+  stat          go to state 5
+  asn           go to state 6
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 12
+
+state 19
+
+  11) cmp : expr "==" _ expr
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 38
+  term          go to state 9
+  fact          go to state 12
+
+state 20
+
+  12) cmp : expr "!=" _ expr
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 39
+  term          go to state 9
+  fact          go to state 12
+
+state 21
+
+  13) cmp : expr ">" _ expr
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 40
+  term          go to state 9
+  fact          go to state 12
+
+state 22
+
+  14) cmp : expr ">=" _ expr
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 41
+  term          go to state 9
+  fact          go to state 12
+
+state 23
+
+  15) cmp : expr "<" _ expr
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 42
+  term          go to state 9
+  fact          go to state 12
+
+state 24
+
+  16) cmp : expr "<=" _ expr
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 43
+  term          go to state 9
+  fact          go to state 12
+
+state 25
+
+  19) expr1 : "+" _ term expr1
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 44
+  fact          go to state 12
+
+state 26
+
+  20) expr1 : "-" _ term expr1
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 45
+  fact          go to state 12
+
+state 27
+
+  17) expr : term expr1 _
+
+  $default      reduce using rule 17 (expr)
+
+
+state 28
+
+   3) stat : "{" prog _ "}"
+
+  "}"           shift, and go to state 46
+
+
+state 29
+
+  23) term1 : "*" _ fact term1
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 47
+
+state 30
+
+  24) term1 : "/" _ fact term1
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 48
+
+state 31
+
+  25) term1 : "%" _ fact term1
+
+  "read"        shift, and go to state 11
+  IDENT         shift, and go to state 13
+  NUMBER        shift, and go to state 1
+
+  asn           go to state 37
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 49
+
+state 32
+
+  21) term : fact term1 _
+
+  $default      reduce using rule 21 (term)
+
+
+state 33
+
+   4) stat : "while" asn _ stat
+  29) fact : asn _
+
+  "{"           shift, and go to state 10
+  "{"           [reduce using rule 29 (fact)]
+  "while"       shift, and go to state 14
+  "while"       [reduce using rule 29 (fact)]
+  "if"          shift, and go to state 2
+  "if"          [reduce using rule 29 (fact)]
+  "print"       shift, and go to state 3
+  "print"       [reduce using rule 29 (fact)]
+  "read"        shift, and go to state 11
+  "read"        [reduce using rule 29 (fact)]
+  IDENT         shift, and go to state 13
+  IDENT         [reduce using rule 29 (fact)]
+  NUMBER        shift, and go to state 1
+  NUMBER        [reduce using rule 29 (fact)]
+  $default      reduce using rule 29 (fact)
+
+  stat          go to state 50
+  asn           go to state 6
+  cmp           go to state 7
+  expr          go to state 8
+  term          go to state 9
+  fact          go to state 12
+
+state 34
+
+   5) stat : "if" asn stat _
+
+  $default      reduce using rule 5 (stat)
+
+
+state 35
+
+
+  $default      accept
+
+
+state 36
+
+   2) prog : stat ";" prog _
+
+  $default      reduce using rule 2 (prog)
+
+
+state 37
+
+  29) fact : asn _
+
+  $default      reduce using rule 29 (fact)
+
+
+state 38
+
+  10) cmp : expr _
+  11) cmp : expr _ "==" expr
+  11) cmp : expr "==" expr _
+  12) cmp : expr _ "!=" expr
+  13) cmp : expr _ ">" expr
+  14) cmp : expr _ ">=" expr
+  15) cmp : expr _ "<" expr
+  16) cmp : expr _ "<=" expr
+
+  "=="          shift, and go to state 19
+  "=="          [reduce using rule 10 (cmp)]
+  "=="          [reduce using rule 11 (cmp)]
+  "!="          shift, and go to state 20
+  "!="          [reduce using rule 10 (cmp)]
+  "!="          [reduce using rule 11 (cmp)]
+  ">"           shift, and go to state 21
+  ">"           [reduce using rule 10 (cmp)]
+  ">"           [reduce using rule 11 (cmp)]
+  ">="          shift, and go to state 22
+  ">="          [reduce using rule 10 (cmp)]
+  ">="          [reduce using rule 11 (cmp)]
+  "<"           shift, and go to state 23
+  "<"           [reduce using rule 10 (cmp)]
+  "<"           [reduce using rule 11 (cmp)]
+  "<="          shift, and go to state 24
+  "<="          [reduce using rule 10 (cmp)]
+  "<="          [reduce using rule 11 (cmp)]
+  $end          [reduce using rule 11 (cmp)]
+  "if"          [reduce using rule 11 (cmp)]
+  NUMBER        [reduce using rule 11 (cmp)]
+  "print"       [reduce using rule 11 (cmp)]
+  "*"           [reduce using rule 11 (cmp)]
+  "/"           [reduce using rule 11 (cmp)]
+  "+"           [reduce using rule 11 (cmp)]
+  "-"           [reduce using rule 11 (cmp)]
+  ";"           [reduce using rule 11 (cmp)]
+  "{"           [reduce using rule 11 (cmp)]
+  "%"           [reduce using rule 11 (cmp)]
+  "}"           [reduce using rule 11 (cmp)]
+  "read"        [reduce using rule 11 (cmp)]
+  "while"       [reduce using rule 11 (cmp)]
+  IDENT         [reduce using rule 11 (cmp)]
+  $default      reduce using rule 10 (cmp)
+
+
+state 39
+
+  10) cmp : expr _
+  11) cmp : expr _ "==" expr
+  12) cmp : expr _ "!=" expr
+  12) cmp : expr "!=" expr _
+  13) cmp : expr _ ">" expr
+  14) cmp : expr _ ">=" expr
+  15) cmp : expr _ "<" expr
+  16) cmp : expr _ "<=" expr
+
+  "=="          shift, and go to state 19
+  "=="          [reduce using rule 10 (cmp)]
+  "=="          [reduce using rule 12 (cmp)]
+  "!="          shift, and go to state 20
+  "!="          [reduce using rule 10 (cmp)]
+  "!="          [reduce using rule 12 (cmp)]
+  ">"           shift, and go to state 21
+  ">"           [reduce using rule 10 (cmp)]
+  ">"           [reduce using rule 12 (cmp)]
+  ">="          shift, and go to state 22
+  ">="          [reduce using rule 10 (cmp)]
+  ">="          [reduce using rule 12 (cmp)]
+  "<"           shift, and go to state 23
+  "<"           [reduce using rule 10 (cmp)]
+  "<"           [reduce using rule 12 (cmp)]
+  "<="          shift, and go to state 24
+  "<="          [reduce using rule 10 (cmp)]
+  "<="          [reduce using rule 12 (cmp)]
+  $end          [reduce using rule 12 (cmp)]
+  "if"          [reduce using rule 12 (cmp)]
+  NUMBER        [reduce using rule 12 (cmp)]
+  "print"       [reduce using rule 12 (cmp)]
+  "*"           [reduce using rule 12 (cmp)]
+  "/"           [reduce using rule 12 (cmp)]
+  "+"           [reduce using rule 12 (cmp)]
+  "-"           [reduce using rule 12 (cmp)]
+  ";"           [reduce using rule 12 (cmp)]
+  "{"           [reduce using rule 12 (cmp)]
+  "%"           [reduce using rule 12 (cmp)]
+  "}"           [reduce using rule 12 (cmp)]
+  "read"        [reduce using rule 12 (cmp)]
+  "while"       [reduce using rule 12 (cmp)]
+  IDENT         [reduce using rule 12 (cmp)]
+  $default      reduce using rule 10 (cmp)
+
+
+state 40
+
+  10) cmp : expr _
+  11) cmp : expr _ "==" expr
+  12) cmp : expr _ "!=" expr
+  13) cmp : expr _ ">" expr
+  13) cmp : expr ">" expr _
+  14) cmp : expr _ ">=" expr
+  15) cmp : expr _ "<" expr
+  16) cmp : expr _ "<=" expr
+
+  "=="          shift, and go to state 19
+  "=="          [reduce using rule 10 (cmp)]
+  "=="          [reduce using rule 13 (cmp)]
+  "!="          shift, and go to state 20
+  "!="          [reduce using rule 10 (cmp)]
+  "!="          [reduce using rule 13 (cmp)]
+  ">"           shift, and go to state 21
+  ">"           [reduce using rule 10 (cmp)]
+  ">"           [reduce using rule 13 (cmp)]
+  ">="          shift, and go to state 22
+  ">="          [reduce using rule 10 (cmp)]
+  ">="          [reduce using rule 13 (cmp)]
+  "<"           shift, and go to state 23
+  "<"           [reduce using rule 10 (cmp)]
+  "<"           [reduce using rule 13 (cmp)]
+  "<="          shift, and go to state 24
+  "<="          [reduce using rule 10 (cmp)]
+  "<="          [reduce using rule 13 (cmp)]
+  $end          [reduce using rule 13 (cmp)]
+  "if"          [reduce using rule 13 (cmp)]
+  NUMBER        [reduce using rule 13 (cmp)]
+  "print"       [reduce using rule 13 (cmp)]
+  "*"           [reduce using rule 13 (cmp)]
+  "/"           [reduce using rule 13 (cmp)]
+  "+"           [reduce using rule 13 (cmp)]
+  "-"           [reduce using rule 13 (cmp)]
+  ";"           [reduce using rule 13 (cmp)]
+  "{"           [reduce using rule 13 (cmp)]
+  "%"           [reduce using rule 13 (cmp)]
+  "}"           [reduce using rule 13 (cmp)]
+  "read"        [reduce using rule 13 (cmp)]
+  "while"       [reduce using rule 13 (cmp)]
+  IDENT         [reduce using rule 13 (cmp)]
+  $default      reduce using rule 10 (cmp)
+
+
+state 41
+
+  10) cmp : expr _
+  11) cmp : expr _ "==" expr
+  12) cmp : expr _ "!=" expr
+  13) cmp : expr _ ">" expr
+  14) cmp : expr _ ">=" expr
+  14) cmp : expr ">=" expr _
+  15) cmp : expr _ "<" expr
+  16) cmp : expr _ "<=" expr
+
+  "=="          shift, and go to state 19
+  "=="          [reduce using rule 10 (cmp)]
+  "=="          [reduce using rule 14 (cmp)]
+  "!="          shift, and go to state 20
+  "!="          [reduce using rule 10 (cmp)]
+  "!="          [reduce using rule 14 (cmp)]
+  ">"           shift, and go to state 21
+  ">"           [reduce using rule 10 (cmp)]
+  ">"           [reduce using rule 14 (cmp)]
+  ">="          shift, and go to state 22
+  ">="          [reduce using rule 10 (cmp)]
+  ">="          [reduce using rule 14 (cmp)]
+  "<"           shift, and go to state 23
+  "<"           [reduce using rule 10 (cmp)]
+  "<"           [reduce using rule 14 (cmp)]
+  "<="          shift, and go to state 24
+  "<="          [reduce using rule 10 (cmp)]
+  "<="          [reduce using rule 14 (cmp)]
+  $end          [reduce using rule 14 (cmp)]
+  "if"          [reduce using rule 14 (cmp)]
+  NUMBER        [reduce using rule 14 (cmp)]
+  "print"       [reduce using rule 14 (cmp)]
+  "*"           [reduce using rule 14 (cmp)]
+  "/"           [reduce using rule 14 (cmp)]
+  "+"           [reduce using rule 14 (cmp)]
+  "-"           [reduce using rule 14 (cmp)]
+  ";"           [reduce using rule 14 (cmp)]
+  "{"           [reduce using rule 14 (cmp)]
+  "%"           [reduce using rule 14 (cmp)]
+  "}"           [reduce using rule 14 (cmp)]
+  "read"        [reduce using rule 14 (cmp)]
+  "while"       [reduce using rule 14 (cmp)]
+  IDENT         [reduce using rule 14 (cmp)]
+  $default      reduce using rule 10 (cmp)
+
+
+state 42
+
+  10) cmp : expr _
+  11) cmp : expr _ "==" expr
+  12) cmp : expr _ "!=" expr
+  13) cmp : expr _ ">" expr
+  14) cmp : expr _ ">=" expr
+  15) cmp : expr _ "<" expr
+  15) cmp : expr "<" expr _
+  16) cmp : expr _ "<=" expr
+
+  "=="          shift, and go to state 19
+  "=="          [reduce using rule 10 (cmp)]
+  "=="          [reduce using rule 15 (cmp)]
+  "!="          shift, and go to state 20
+  "!="          [reduce using rule 10 (cmp)]
+  "!="          [reduce using rule 15 (cmp)]
+  ">"           shift, and go to state 21
+  ">"           [reduce using rule 10 (cmp)]
+  ">"           [reduce using rule 15 (cmp)]
+  ">="          shift, and go to state 22
+  ">="          [reduce using rule 10 (cmp)]
+  ">="          [reduce using rule 15 (cmp)]
+  "<"           shift, and go to state 23
+  "<"           [reduce using rule 10 (cmp)]
+  "<"           [reduce using rule 15 (cmp)]
+  "<="          shift, and go to state 24
+  "<="          [reduce using rule 10 (cmp)]
+  "<="          [reduce using rule 15 (cmp)]
+  $end          [reduce using rule 15 (cmp)]
+  "if"          [reduce using rule 15 (cmp)]
+  NUMBER        [reduce using rule 15 (cmp)]
+  "print"       [reduce using rule 15 (cmp)]
+  "*"           [reduce using rule 15 (cmp)]
+  "/"           [reduce using rule 15 (cmp)]
+  "+"           [reduce using rule 15 (cmp)]
+  "-"           [reduce using rule 15 (cmp)]
+  ";"           [reduce using rule 15 (cmp)]
+  "{"           [reduce using rule 15 (cmp)]
+  "%"           [reduce using rule 15 (cmp)]
+  "}"           [reduce using rule 15 (cmp)]
+  "read"        [reduce using rule 15 (cmp)]
+  "while"       [reduce using rule 15 (cmp)]
+  IDENT         [reduce using rule 15 (cmp)]
+  $default      reduce using rule 10 (cmp)
+
+
+state 43
+
+  10) cmp : expr _
+  11) cmp : expr _ "==" expr
+  12) cmp : expr _ "!=" expr
+  13) cmp : expr _ ">" expr
+  14) cmp : expr _ ">=" expr
+  15) cmp : expr _ "<" expr
+  16) cmp : expr _ "<=" expr
+  16) cmp : expr "<=" expr _
+
+  "=="          shift, and go to state 19
+  "=="          [reduce using rule 10 (cmp)]
+  "=="          [reduce using rule 16 (cmp)]
+  "!="          shift, and go to state 20
+  "!="          [reduce using rule 10 (cmp)]
+  "!="          [reduce using rule 16 (cmp)]
+  ">"           shift, and go to state 21
+  ">"           [reduce using rule 10 (cmp)]
+  ">"           [reduce using rule 16 (cmp)]
+  ">="          shift, and go to state 22
+  ">="          [reduce using rule 10 (cmp)]
+  ">="          [reduce using rule 16 (cmp)]
+  "<"           shift, and go to state 23
+  "<"           [reduce using rule 10 (cmp)]
+  "<"           [reduce using rule 16 (cmp)]
+  "<="          shift, and go to state 24
+  "<="          [reduce using rule 10 (cmp)]
+  "<="          [reduce using rule 16 (cmp)]
+  $end          [reduce using rule 16 (cmp)]
+  "if"          [reduce using rule 16 (cmp)]
+  NUMBER        [reduce using rule 16 (cmp)]
+  "print"       [reduce using rule 16 (cmp)]
+  "*"           [reduce using rule 16 (cmp)]
+  "/"           [reduce using rule 16 (cmp)]
+  "+"           [reduce using rule 16 (cmp)]
+  "-"           [reduce using rule 16 (cmp)]
+  ";"           [reduce using rule 16 (cmp)]
+  "{"           [reduce using rule 16 (cmp)]
+  "%"           [reduce using rule 16 (cmp)]
+  "}"           [reduce using rule 16 (cmp)]
+  "read"        [reduce using rule 16 (cmp)]
+  "while"       [reduce using rule 16 (cmp)]
+  IDENT         [reduce using rule 16 (cmp)]
+  $default      reduce using rule 10 (cmp)
+
+
+state 44
+
+  17) expr : term _ expr1
+  19) expr1 : "+" term _ expr1
+
+  "+"           shift, and go to state 25
+  "+"           [reduce using rule 18 (expr1)]
+  "-"           shift, and go to state 26
+  "-"           [reduce using rule 18 (expr1)]
+  $default      reduce using rule 18 (expr1)
+
+  expr1         go to state 51
+
+state 45
+
+  17) expr : term _ expr1
+  20) expr1 : "-" term _ expr1
+
+  "+"           shift, and go to state 25
+  "+"           [reduce using rule 18 (expr1)]
+  "-"           shift, and go to state 26
+  "-"           [reduce using rule 18 (expr1)]
+  $default      reduce using rule 18 (expr1)
+
+  expr1         go to state 52
+
+state 46
+
+   3) stat : "{" prog "}" _
+
+  $default      reduce using rule 3 (stat)
+
+
+state 47
+
+  21) term : fact _ term1
+  23) term1 : "*" fact _ term1
+
+  "*"           shift, and go to state 29
+  "*"           [reduce using rule 22 (term1)]
+  "/"           shift, and go to state 30
+  "/"           [reduce using rule 22 (term1)]
+  "%"           shift, and go to state 31
+  "%"           [reduce using rule 22 (term1)]
+  $default      reduce using rule 22 (term1)
+
+  term1         go to state 53
+
+state 48
+
+  21) term : fact _ term1
+  24) term1 : "/" fact _ term1
+
+  "*"           shift, and go to state 29
+  "*"           [reduce using rule 22 (term1)]
+  "/"           shift, and go to state 30
+  "/"           [reduce using rule 22 (term1)]
+  "%"           shift, and go to state 31
+  "%"           [reduce using rule 22 (term1)]
+  $default      reduce using rule 22 (term1)
+
+  term1         go to state 54
+
+state 49
+
+  21) term : fact _ term1
+  25) term1 : "%" fact _ term1
+
+  "*"           shift, and go to state 29
+  "*"           [reduce using rule 22 (term1)]
+  "/"           shift, and go to state 30
+  "/"           [reduce using rule 22 (term1)]
+  "%"           shift, and go to state 31
+  "%"           [reduce using rule 22 (term1)]
+  $default      reduce using rule 22 (term1)
+
+  term1         go to state 55
+
+state 50
+
+   4) stat : "while" asn stat _
+
+  $default      reduce using rule 4 (stat)
+
+
+state 51
+
+  17) expr : term expr1 _
+  19) expr1 : "+" term expr1 _
+
+  $end          [reduce using rule 19 (expr1)]
+  "if"          [reduce using rule 19 (expr1)]
+  NUMBER        [reduce using rule 19 (expr1)]
+  "print"       [reduce using rule 19 (expr1)]
+  "=="          [reduce using rule 19 (expr1)]
+  "*"           [reduce using rule 19 (expr1)]
+  "!="          [reduce using rule 19 (expr1)]
+  "/"           [reduce using rule 19 (expr1)]
+  ">"           [reduce using rule 19 (expr1)]
+  "+"           [reduce using rule 19 (expr1)]
+  ">="          [reduce using rule 19 (expr1)]
+  "-"           [reduce using rule 19 (expr1)]
+  "<"           [reduce using rule 19 (expr1)]
+  ";"           [reduce using rule 19 (expr1)]
+  "<="          [reduce using rule 19 (expr1)]
+  "{"           [reduce using rule 19 (expr1)]
+  "%"           [reduce using rule 19 (expr1)]
+  "}"           [reduce using rule 19 (expr1)]
+  "read"        [reduce using rule 19 (expr1)]
+  "while"       [reduce using rule 19 (expr1)]
+  IDENT         [reduce using rule 19 (expr1)]
+  $default      reduce using rule 17 (expr)
+
+
+state 52
+
+  17) expr : term expr1 _
+  20) expr1 : "-" term expr1 _
+
+  $end          [reduce using rule 20 (expr1)]
+  "if"          [reduce using rule 20 (expr1)]
+  NUMBER        [reduce using rule 20 (expr1)]
+  "print"       [reduce using rule 20 (expr1)]
+  "=="          [reduce using rule 20 (expr1)]
+  "*"           [reduce using rule 20 (expr1)]
+  "!="          [reduce using rule 20 (expr1)]
+  "/"           [reduce using rule 20 (expr1)]
+  ">"           [reduce using rule 20 (expr1)]
+  "+"           [reduce using rule 20 (expr1)]
+  ">="          [reduce using rule 20 (expr1)]
+  "-"           [reduce using rule 20 (expr1)]
+  "<"           [reduce using rule 20 (expr1)]
+  ";"           [reduce using rule 20 (expr1)]
+  "<="          [reduce using rule 20 (expr1)]
+  "{"           [reduce using rule 20 (expr1)]
+  "%"           [reduce using rule 20 (expr1)]
+  "}"           [reduce using rule 20 (expr1)]
+  "read"        [reduce using rule 20 (expr1)]
+  "while"       [reduce using rule 20 (expr1)]
+  IDENT         [reduce using rule 20 (expr1)]
+  $default      reduce using rule 17 (expr)
+
+
+state 53
+
+  21) term : fact term1 _
+  23) term1 : "*" fact term1 _
+
+  $end          [reduce using rule 23 (term1)]
+  "if"          [reduce using rule 23 (term1)]
+  NUMBER        [reduce using rule 23 (term1)]
+  "print"       [reduce using rule 23 (term1)]
+  "=="          [reduce using rule 23 (term1)]
+  "*"           [reduce using rule 23 (term1)]
+  "!="          [reduce using rule 23 (term1)]
+  "/"           [reduce using rule 23 (term1)]
+  ">"           [reduce using rule 23 (term1)]
+  "+"           [reduce using rule 23 (term1)]
+  ">="          [reduce using rule 23 (term1)]
+  "-"           [reduce using rule 23 (term1)]
+  "<"           [reduce using rule 23 (term1)]
+  ";"           [reduce using rule 23 (term1)]
+  "<="          [reduce using rule 23 (term1)]
+  "{"           [reduce using rule 23 (term1)]
+  "%"           [reduce using rule 23 (term1)]
+  "}"           [reduce using rule 23 (term1)]
+  "read"        [reduce using rule 23 (term1)]
+  "while"       [reduce using rule 23 (term1)]
+  IDENT         [reduce using rule 23 (term1)]
+  $default      reduce using rule 21 (term)
+
+
+state 54
+
+  21) term : fact term1 _
+  24) term1 : "/" fact term1 _
+
+  $end          [reduce using rule 24 (term1)]
+  "if"          [reduce using rule 24 (term1)]
+  NUMBER        [reduce using rule 24 (term1)]
+  "print"       [reduce using rule 24 (term1)]
+  "=="          [reduce using rule 24 (term1)]
+  "*"           [reduce using rule 24 (term1)]
+  "!="          [reduce using rule 24 (term1)]
+  "/"           [reduce using rule 24 (term1)]
+  ">"           [reduce using rule 24 (term1)]
+  "+"           [reduce using rule 24 (term1)]
+  ">="          [reduce using rule 24 (term1)]
+  "-"           [reduce using rule 24 (term1)]
+  "<"           [reduce using rule 24 (term1)]
+  ";"           [reduce using rule 24 (term1)]
+  "<="          [reduce using rule 24 (term1)]
+  "{"           [reduce using rule 24 (term1)]
+  "%"           [reduce using rule 24 (term1)]
+  "}"           [reduce using rule 24 (term1)]
+  "read"        [reduce using rule 24 (term1)]
+  "while"       [reduce using rule 24 (term1)]
+  IDENT         [reduce using rule 24 (term1)]
+  $default      reduce using rule 21 (term)
+
+
+state 55
+
+  21) term : fact term1 _
+  25) term1 : "%" fact term1 _
+
+  $end          [reduce using rule 25 (term1)]
+  "if"          [reduce using rule 25 (term1)]
+  NUMBER        [reduce using rule 25 (term1)]
+  "print"       [reduce using rule 25 (term1)]
+  "=="          [reduce using rule 25 (term1)]
+  "*"           [reduce using rule 25 (term1)]
+  "!="          [reduce using rule 25 (term1)]
+  "/"           [reduce using rule 25 (term1)]
+  ">"           [reduce using rule 25 (term1)]
+  "+"           [reduce using rule 25 (term1)]
+  ">="          [reduce using rule 25 (term1)]
+  "-"           [reduce using rule 25 (term1)]
+  "<"           [reduce using rule 25 (term1)]
+  ";"           [reduce using rule 25 (term1)]
+  "<="          [reduce using rule 25 (term1)]
+  "{"           [reduce using rule 25 (term1)]
+  "%"           [reduce using rule 25 (term1)]
+  "}"           [reduce using rule 25 (term1)]
+  "read"        [reduce using rule 25 (term1)]
+  "while"       [reduce using rule 25 (term1)]
+  IDENT         [reduce using rule 25 (term1)]
+  $default      reduce using rule 21 (term)
+

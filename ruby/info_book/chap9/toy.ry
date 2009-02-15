@@ -1,0 +1,51 @@
+
+
+class Toy::Parser
+prechigh
+  nonassoc UMINUS
+  left     '*' '/'
+  left     '+' '-'
+preclow
+
+rule
+  
+  prog : stat
+       | stat ';' prog
+  
+  stat : '{' prog '}'
+       | 'while' asn stat
+       | 'if' asn stat
+       | 'print' asn
+       | asn
+  
+  asn : cmp
+      | cmp = asn
+  
+  cmp : expr
+      | expr '==' expr
+      | expr '!=' expr
+      | expr '>'  expr
+      | expr '>=' expr
+      | expr '<'  expr
+      | expr '<=' expr
+
+  expr : term expr1
+
+  expr1 : 
+        | '+' term expr1
+        | '-' term expr1
+  
+  term : fact term1
+  
+  term1 :
+        | '*' fact term1
+        | '/' fact term1
+        | '%' fact term1
+  
+  fact : 'read'
+       | IDENT
+       | NUMBER
+       | asn
+
+  
+end
