@@ -1,0 +1,6 @@
+--- !ruby/struct:JabberConfig 
+jid: your_jabber_id
+password: your_password
+room_jid: room_jid
+nick: nick_name
+
