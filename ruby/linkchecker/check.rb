@@ -12,14 +12,18 @@ ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => "cache
 ActiveRecord::Base.logger = nil # Logger.new(STDOUT)
 
 def main
-  base_uri   = nil
-  link_depth = 3
+  base_uri    = nil
+  link_depth  = 3
+  report_only = nil
   parser = OptionParser.new
   parser.on('-b URI', '--base-uri=URI', 'Base URI') do |uri|
     base_uri = uri
   end
   parser.on('-d num', '--depth=num', 'Link depth (default 3)') do |depth|
     link_depth = depth.to_i
+  end
+  parser.on('--report', 'show report only') do
+    report_only = true
   end
   begin
     parser.parse!
@@ -38,7 +42,7 @@ def main
   setup_db
 
   link_checker = LinkChecker.new(base_uri, link_depth)
-  link_checker.run
+  link_checker.run unless report_only
   link_checker.report
 
 end
@@ -60,6 +64,7 @@ def setup_db
 end
 
 class Check < ActiveRecord::Base
+
   CONDITION = 'http_status between ? and ?'
   ORDER = 'source_uri ASC, target_uri ASC'
   named_scope :informatinals, :conditions => [CONDITION, 100, 199], :order => ORDER
@@ -90,6 +95,8 @@ class LinkChecker
 
   def check(source_uri, link, depth = 1)
     # FIXME HTTP Status の分類を細かくする
+    return if Check.exists?(:source_uri => source_uri.to_s,
+                            :target_uri => link.node['href'])
     page = nil
     begin
       page = link.click
@@ -108,6 +115,8 @@ class LinkChecker
                     :target_uri  => link.node['href'],
                     :http_status => ex.response_code,
                     :depth       => depth)
+    rescue ActiveRecord::RecordInvalid => ex
+      # do nothing
     rescue ActiveRecord::RecordNotSaved => ex
       # do nothing
     rescue RuntimeError => ex
@@ -119,7 +128,7 @@ class LinkChecker
     Check.client_errors.each do |record|
       record.show
     end
-    Check.client_errors.each do |record|
+    Check.server_errors.each do |record|
       record.show
     end
     error_count = Check.client_errors.count + Check.server_errors.count
