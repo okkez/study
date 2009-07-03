@@ -19,7 +19,7 @@ def main
     base_uri = uri
   end
   parser.on('-d num', '--depth=num', 'Link depth (default 3)') do |depth|
-    link_depth = depth
+    link_depth = depth.to_i
   end
   begin
     parser.parse!
