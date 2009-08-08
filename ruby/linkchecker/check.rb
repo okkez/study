@@ -8,12 +8,10 @@ require 'rubygems'
 require 'mechanize'
 require 'activerecord'
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => "cache.sqlite3")
-ActiveRecord::Base.logger = nil # Logger.new(STDOUT)
-
 def main
   base_uri    = nil
   link_depth  = 3
+  recheck     = false
   report_only = nil
   parser = OptionParser.new
   parser.on('-b URI', '--base-uri=URI', 'Base URI') do |uri|
@@ -22,7 +20,10 @@ def main
   parser.on('-d num', '--depth=num', 'Link depth (default 3)') do |depth|
     link_depth = depth.to_i
   end
-  parser.on('--report', 'show report only') do
+  parser.on('--recheck', 'Recheck error URI') do
+    recheck = true
+  end
+  parser.on('--report', 'Show report only') do
     report_only = true
   end
   begin
@@ -33,7 +34,9 @@ def main
     exit 1
   end
   begin
-    raise 'must specify --base-uri' if base_uri.nil?
+    unless recheck || report_only
+      raise 'must specify --base-uri' if base_uri.nil?
+    end
   rescue => ex
     $stderr.puts ex.message
     $stderr.puts parser.help
@@ -41,13 +44,16 @@ def main
   end
   setup_db
 
-  link_checker = LinkChecker.new(base_uri, link_depth)
+  link_checker = LinkChecker.new(base_uri, link_depth, recheck)
   link_checker.run unless report_only
   link_checker.report
 
 end
 
 def setup_db
+  ActiveRecord::Base.establish_connection(:adapter => "sqlite3",
+                                          :dbfile  => "cache.sqlite3")
+  ActiveRecord::Base.logger = nil # Logger.new(STDOUT)
   return if Check.table_exists?
   ActiveRecord::Schema.define(:version => 1) do
     create_table :checks do |t|
@@ -79,14 +85,19 @@ class Check < ActiveRecord::Base
 end
 
 class LinkChecker
-  def initialize(base_uri, link_depth)
-    @base_uri   = URI.parse(base_uri)
+  def initialize(base_uri = nil, link_depth = 3, recheck = false)
+    @base_uri   = URI.parse(base_uri) if base_uri
     @link_depth = link_depth
+    @recheck = recheck
     @agent = WWW::Mechanize.new
     @agent.user_agent_alias = 'Mac Safari'
   end
 
   def run
+    if @recheck
+      recheck
+      return
+    end
     page = @agent.get(@base_uri)
     page.links.each do |link|
       check(@base_uri, link, 1)
@@ -102,7 +113,7 @@ class LinkChecker
       page = link.click
       Check.create!(:source_uri  => source_uri.to_s,
                     :target_uri  => link.node['href'],
-                    :http_status => '200',
+                    :http_status => 200,
                     :depth       => depth)
       return if external?(link)
       return if @link_depth < depth + 1
@@ -113,7 +124,7 @@ class LinkChecker
     rescue WWW::Mechanize::ResponseCodeError => ex
       Check.create!(:source_uri  => source_uri.to_s,
                     :target_uri  => link.node['href'],
-                    :http_status => ex.response_code,
+                    :http_status => ex.response_code.to_i,
                     :depth       => depth)
     rescue ActiveRecord::RecordInvalid => ex
       # do nothing
@@ -121,6 +132,26 @@ class LinkChecker
       # do nothing
     rescue RuntimeError => ex
       $stderr.puts link.node['href']
+    end
+  end
+
+  def recheck
+    Check.client_errors.each do |record|
+      check_uri(record)
+    end
+    Check.server_errors.each do |record|
+      check_uri(record)
+    end
+  end
+
+  def check_uri(record)
+    begin
+      page = @agent.get(record.target_uri)
+      record.http_status = 200
+      record.save!
+    rescue WWW::Mechanize::ResponseCodeError => ex
+      record.http_status = ex.response_code
+      record.save!
     end
   end
 
