@@ -6,7 +6,7 @@ class Stack
   end
 
   def empty?
-    true
+    @size == 0
   end
 
   def push(val)

@@ -27,4 +27,8 @@ class TestStack < Test::Unit::TestCase
     assert_equal 2, @stack.size
   end
 
+  def test_push_and_empty?
+    @stack.push(3)
+    assert !@stack.empty?
+  end
 end
