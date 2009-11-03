@@ -4,7 +4,16 @@ class Stack
   class EmptyError < StandardError
   end
 
+  class Node
+    attr_accessor :prev, :data
+    def initialize(prev, data)
+      @prev = prev
+      @data = data
+    end
+  end
+
   def initialize
+    @top = nil
     @size = 0
   end
 
@@ -14,12 +23,17 @@ class Stack
 
   def push(val)
     @size += 1
+    node = Node.new(@top, val)
+    @top = node
+    val
   end
 
   def pop
     raise EmptyError if empty?
     @size -= 1
-    3
+    popped = @top
+    @top = @top.prev
+    popped.data
   end
 
   def size
