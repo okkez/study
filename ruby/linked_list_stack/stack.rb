@@ -1,6 +1,9 @@
 
 class Stack
 
+  class EmptyError < StandardError
+  end
+
   def initialize
     @size = 0
   end
@@ -14,6 +17,7 @@ class Stack
   end
 
   def pop
+    raise EmptyError if empty?
     3
   end
 

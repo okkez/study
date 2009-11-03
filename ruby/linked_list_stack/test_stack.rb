@@ -31,4 +31,10 @@ class TestStack < Test::Unit::TestCase
     @stack.push(3)
     assert !@stack.empty?
   end
+
+  def test_empty_pop
+    assert_raise(Stack::EmptyError) do
+      @stack.pop
+    end
+  end
 end
