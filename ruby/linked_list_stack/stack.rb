@@ -18,6 +18,7 @@ class Stack
 
   def pop
     raise EmptyError if empty?
+    @size -= 1
     3
   end
 
