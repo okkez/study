@@ -1,11 +1,16 @@
 
 class Stack
 
+  def initialize
+    @size = 0
+  end
+
   def empty?
     true
   end
 
   def push(val)
+    @size += 1
   end
 
   def pop
@@ -13,6 +18,6 @@ class Stack
   end
 
   def size
-    1
+    @size
   end
 end

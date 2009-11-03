@@ -20,4 +20,11 @@ class TestStack < Test::Unit::TestCase
     @stack.push(3)
     assert_equal 1, @stack.size
   end
+
+  def test_push_push_and_size
+    @stack.push(3)
+    @stack.push(5)
+    assert_equal 2, @stack.size
+  end
+
 end
