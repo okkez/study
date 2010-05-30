@@ -35,17 +35,17 @@ class Customer
   end
 
   def amount_for(element)
-    this_amount = 0
+    result = 0
     case element.movie.price_code
     when Movie::REGULAR
-      this_amount += 2
-      this_amount += (element.days_rented - 2) * 1.5 if element.days_rented > 2
+      result += 2
+      result += (element.days_rented - 2) * 1.5 if element.days_rented > 2
     when Movie::NEW_RELEASE
-      this_amount += element.days_rented * 3
+      result += element.days_rented * 3
     when Movie::CHILDRENS
-      this_amount += 1.5
-      this_amount += (element.days_rented - 3) * 1.5 if element.days_rented > 3
+      result += 1.5
+      result += (element.days_rented - 3) * 1.5 if element.days_rented > 3
     end
-    this_amount
+    result
   end
 end
