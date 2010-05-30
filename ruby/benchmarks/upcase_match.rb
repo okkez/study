@@ -5,22 +5,22 @@ b = 'aBcDef'
 c = 'xxxxxx'
 n = 10000
 Benchmark.bmbm do |x|
-  x.reposrt('upcase true'){
+  x.report('upcase true'){
     n.times do
       a.upcase == b.upcase
     end
   }
-  x.reposrt('upcase false'){
+  x.report('upcase false'){
     n.times do
       a.upcase == c.upcase
     end
   }
-  x.reposrt('match true'){
+  x.report('match true'){
     n.times do
       a.upcase == b.upcase
     end
   }
-  x.reposrt('match false'){
+  x.report('match false'){
     n.times do
       a.upcase == c.upcase
     end
