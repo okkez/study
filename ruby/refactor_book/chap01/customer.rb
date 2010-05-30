@@ -20,15 +20,24 @@ class Customer
 
       # このレンタルの料金を表示
       result += "\t" + element.movie.title + "\t" + element.charge.to_s + "\n"
-      total_amount += element.charge
     end
     # フッター行を追加
-    result += "Amount owned is #{total_amount}\n"
+    result += "Amount owned is #{total_change}\n"
     result += "You earned #{frequent_renter_points} freqent renter points"
     result
   end
 
   def amount_for(rental)
     rental.charge
+  end
+
+  private
+
+  def total_change
+    result = 0
+    @rentals.each do |element|
+      result += element.charge
+    end
+    result
   end
 end
