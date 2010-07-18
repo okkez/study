@@ -64,6 +64,10 @@ module BoxedDaughter
       @prev = prev
     end
 
+    def self.parse(str)
+      # TODO
+    end
+
     def [](x, y)
       @board[y][x]
     end
@@ -75,10 +79,6 @@ module BoxedDaughter
     def goal?
       m = @pieces.find{|v| v.symbol == :M }
       [m.x, m.y] == GOAL
-    end
-
-    def parse(str)
-      # TODO
     end
 
     def movable?(piece, dx, dy)
